@@ -64,6 +64,7 @@ router.post('/login', [
 
     // If there are errors, return Bad request and the errors
     // returns the errors if any present in the request
+    let success = false;
     const result = validationResult(req);
     if (!result.isEmpty()) {
         return res.status(400).json({ errors: result.array() });
@@ -74,12 +75,14 @@ router.post('/login', [
         const user = await User.findOne({email});
         if(!user)
         {
+            success = false;
             return res.status(400).json({error:"Please enter the correct credentials"});
         }
 
         const passwordCompare = await bcrypt.compare(password, user.password);
         if(!passwordCompare)
         {
+            success = false;
             return res.status(400).json({error:"Please enter the correct credentials"});
         }
 
@@ -91,7 +94,8 @@ router.post('/login', [
         }
 
         const authToken = jwt.sign(data, JWT_SECRET);
-        res.status(201).json({authToken});
+        success = true;
+        res.status(201).json({success, authToken});
         
     } catch (error) {
         console.error(error);

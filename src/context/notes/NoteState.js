@@ -76,7 +76,7 @@ const NoteState = (props) => {
             setNotes(newNotes);
         } catch (error) {
             console.error("Error deleting note:", error);
-        }
+         }
     };
 
     // Edit Note

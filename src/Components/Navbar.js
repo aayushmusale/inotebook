@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {useLocation } from 'react-router-dom'
+import {useLocation, Link } from 'react-router-dom'
 const Navbar = () => {
     let location = useLocation();
 
@@ -8,7 +8,7 @@ const Navbar = () => {
     }, [location]);
     return (
     <div>
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-dark navbar-expand-lg  bg-dark">
             <div className="container-fluid">
                 <a className="navbar-brand" href="/"><b>iNoteBook</b></a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +27,8 @@ const Navbar = () => {
 
                     </ul>
                     <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success bg-body-black" type="submit">Search</button>
+                    <Link className="btn btn-primary mx-2" to="/login" role="button" >Login</Link>
+                    <Link className="btn btn-primary mx-2" to="/signup" role="button" >Signup</Link>                        
                     </form>
                 </div>
             </div>
