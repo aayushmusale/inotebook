@@ -13,6 +13,11 @@ const AddNote = (props) => {
     // }
     const handleClick =(e)=>{
       e.preventDefault();
+      if(note.title.length<5 || note.description.length<5){
+        props.showAlert("Title and Description must be atleast 5 characters long", "warning");
+        return;
+      }
+
       addNote(note.title, note.description, note.tag);
       setNote({title:"", description:"", tag:""})
       props.showAlert("Note added successfully", "success");

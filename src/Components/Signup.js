@@ -3,11 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 const Signup = (props) => {
 
-  const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpasword: "" });
+  const [credentials, setCredentials] = useState({ name: "", email: "", password: "", cpassword: "" });
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // if (setCredentials.password !== setCredentials.cpassword) {
+    //   props.showAlert("Passwords do not match", "danger");
+    //   return;
+    // }
 
     try {
       const response = await fetch("http://localhost:5000/api/auth/createuser", {
@@ -25,6 +30,7 @@ const Signup = (props) => {
       localStorage.setItem('token', json.authToken);
       navigate("/");
       props.showAlert("Account created Successfully", "success");
+
     } catch (e) {
       props.showAlert("Please enter valid credentials", "danger");
     }
@@ -55,7 +61,7 @@ const Signup = (props) => {
           <input type="password" className="form-control" name="password" onChange={onChange} id="password" minLength={5} required />
         </div>
         <div className="mb-3">
-          <label htmlFor="cpassword" className="form-label">Confirm Password</label>
+          <label htmlFor="cpassword" className="form-label" spellCheck>Confirm Password</label>
           <input type="password" className="form-control" name="cpassword" onChange={onChange} id="cpassword" required />
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
