@@ -20,7 +20,9 @@ const Signup = (props) => {
       const json = await response.json();
       console.log("User created", json);
 
-      localStorage.setItem('token', json.authtoken);
+      // save the auth-token and redirect
+      // it is json.authToken and not json.authtoken
+      localStorage.setItem('token', json.authToken);
       navigate("/");
       props.showAlert("Account created Successfully", "success");
     } catch (e) {
@@ -36,9 +38,10 @@ const Signup = (props) => {
   }
 
   return (
-    <div className='container'>
+    <div className='container my-4 '>
+      <h2>Create an account</h2>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+        <div className="mb-3 mt-3">
           <label htmlFor="name" className="form-label">Name</label>
           <input type="text" className="form-control" id="name" name="name" onChange={onChange} aria-describedby="emailHelp" minLength={3} required />
         </div>

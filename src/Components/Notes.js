@@ -2,13 +2,22 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import noteContext from "../context/notes/noteContext";
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom';
 // import EditNote from './EditNote';
 const Notes = (props) => {
+    let navigate = useNavigate();
     const context = useContext(noteContext);
     const { notes, GetNotes, EditNote } = context;
     const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
     useEffect(() => {
-        GetNotes()
+        if(localStorage.getItem('token')){
+            GetNotes()
+        }
+        else
+        {
+            navigate("/login");
+        }
+        
         // eslint-disable-next-line
     }, []);
 
@@ -34,7 +43,7 @@ const Notes = (props) => {
 
     const {showAlert} = props;
     return (
-        <>
+        <div className='container my-5'>
             <AddNote showAlert={showAlert}/>
 
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -85,7 +94,7 @@ const Notes = (props) => {
                 )}
                 {/* </div> */}
             </div>
-        </>
+        </div>
     );
 };
 

@@ -20,7 +20,18 @@ const Login = (props) => {
 
         if(json.success)
         {
-            localStorage.setItem('token', json.authtoken);
+            // saved the auth-token to the local storage
+            // it is json.authToken and not json.authtoken
+            if (json.authToken) {
+                localStorage.setItem("token", json.authToken);
+                console.log("Token stored successfully:", localStorage.getItem("token"));
+            } else {
+                console.error("Auth token not received from backend.");
+                /////////////
+                throw new Error(`Failed to login`);
+                
+            }
+            // localStorage.setItem('token', json.authtoken);
             navigate("/");
             props.showAlert("Logged in Successfully", "success");
         }
@@ -37,9 +48,10 @@ const Login = (props) => {
     }
 
     return (
-        <div>
+        <div className='container my-4'>
+            <h2>Login to continue...</h2>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
+                <div className="mb-3 mt-3">
                     <label htmlFor="email" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="email" value={credentials.email} onChange={onChange} name="email" aria-describedby="emailHelp"/>
                         <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
